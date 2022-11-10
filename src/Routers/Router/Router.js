@@ -11,44 +11,56 @@ import Services from "../../Pages/Services/Services";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
-    {
-        path:'/',
-        element:<Main></Main>,
-        children:[
-           {
-            path:'/',
-            element:<Home></Home>
-           },
-           {
-            path:'/login',
-            element:<Login></Login>
-           },
-           {
-            path:'/register',
-            element:<Register></Register>
-           },
-           {
-            path:'/blog',
-            element:<Blog></Blog>
-           },
-           {
-            path:'/orders',
-            element:<PrivateRoute><Orders></Orders></PrivateRoute>
-           },
-           {
-            path:'/review',
-            element:<PrivateRoute><Review></Review></PrivateRoute>
-           },
-           {
-            path:'/services',
-            element:<Services></Services>,
-            loader:()=>fetch('http://localhost:5000/services')
-           },
-           {
-            path:'/services/:id',
-            element:<ServiceDetails></ServiceDetails>,
-            loader:({params})=>fetch(`http://localhost:5000/services/${params.id}`)
-           }
-        ]
-    }
-])
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "/orders",
+        element: (
+          <PrivateRoute>
+            <Orders></Orders>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/review",
+        element: (
+          <PrivateRoute>
+            <Review></Review>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/services",
+        element: <Services></Services>,
+        loader: () =>
+          fetch("https://photozzz-server-rafiulaanam.vercel.app/services"),
+      },
+      {
+        path: "/services/:id",
+        element: <ServiceDetails></ServiceDetails>,
+        loader: ({ params }) =>
+          fetch(
+            `https://photozzz-server-rafiulaanam.vercel.app/services/${params.id}`
+          ),
+      },
+    ],
+  },
+]);
