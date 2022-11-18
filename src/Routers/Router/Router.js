@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../layout/Main";
+import AddService from "../../Pages/AddService/AddService";
 import Blog from "../../Pages/Blog/Blog";
 import ViewPost from "../../Pages/Blog/ViewPost";
 import Home from "../../Pages/Home/Home/Home";
@@ -31,7 +32,8 @@ export const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog></Blog>,
-        loader:()=>fetch('https://photozzz-server-rafiulaanam.vercel.app/blogs')
+        loader: () =>
+          fetch("https://photozzz-server-rafiulaanam.vercel.app/blogs"),
       },
       {
         path: "/orders",
@@ -50,9 +52,20 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/addservice",
+        element: (
+          <PrivateRoute>
+            <AddService></AddService>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/viewpost/:id",
         element: <ViewPost></ViewPost>,
-        loader:({params})=>fetch(`https://photozzz-server-rafiulaanam.vercel.app/blogs/${params.id}`)
+        loader: ({ params }) =>
+          fetch(
+            `https://photozzz-server-rafiulaanam.vercel.app/blogs/${params.id}`
+          ),
       },
       {
         path: "/services",

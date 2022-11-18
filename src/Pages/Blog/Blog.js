@@ -3,6 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 
 import img from '../../Assets/img/1.jpg'
 import BlogCard from './BlogCard';
+import BlogQ from './BlogQ';
 
 const Blog = () => {
     const blogs = useLoaderData() 
@@ -19,7 +20,9 @@ const Blog = () => {
   </div>
         </div>
 
-
+<div>
+  <BlogQ></BlogQ>
+</div>
         
       <div className='mt-10'>
       {

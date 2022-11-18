@@ -25,7 +25,7 @@ const ServicesCard = ({service}) => {
     <div className="rating">
     <p>Rating: {rating}</p>
   <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400"  />
   <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
   <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
   <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />

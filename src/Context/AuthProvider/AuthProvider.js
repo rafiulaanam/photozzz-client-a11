@@ -1,7 +1,7 @@
 import React from 'react';
 import { createContext } from 'react';
 import app from '../../firebase/firebase.config';
-import {createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth'
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -28,15 +28,26 @@ const AuthProvider = ({children}) => {
    const googleSignIn =()=>signInWithPopup(auth,googleProvider)
    const githubSignIn =()=>signInWithPopup(auth,githubProvider)
 
-   const emailSignUp =(email,password)=>createUserWithEmailAndPassword(auth,email,password)
+   const emailSignUp =(email,password)=>{
+    setLoading(true)
+    return createUserWithEmailAndPassword(auth,email,password)}
 
-   const emailSignIn =(email,password)=>signInWithEmailAndPassword(auth,email,password)
+   const emailSignIn =(email,password)=>{
+    setLoading(true)
+    return signInWithEmailAndPassword(auth,email,password)}
 
-   const logOut=() =>signOut(auth)
+    const updateUser =(profile)=>{
+       return updateProfile(auth.currentUser,profile)
+    }
+
+   const logOut=() =>{
+    setLoading(true)
+    return signOut(auth)}
 
     const authInfo = {
         user,
         loading,
+        updateUser,
         googleSignIn,
         githubSignIn,
         emailSignUp,

@@ -21,9 +21,10 @@ const from = location.state?.from?.pathname || '/'
       emailSignIn(email,password)
       .then((data)=>{
         console.log(data)
-      })
-      form.reset()
+        form.reset()
      
+      })
+      
       navigate(from , {replace:true})
       .catch(e=>console.error(e))
 

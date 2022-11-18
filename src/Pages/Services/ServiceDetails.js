@@ -1,27 +1,22 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import CommentArea from "./CommentArea";
+import ReviewCard from "./ReviewCard";
 
 const ServiceDetails = () => {
   const service = useLoaderData();
 
-  const { img, title, facility,id } = service;
+  const { img, title, facility, _id } = service;
 
-  const handleComment =(event)=>{
-    event.preventDefault()
-    const form = event.target;
-    const comment = form.comment.value;
-    console.log(comment)
+  const [reviews, setReviews] = useState([]);
 
-    fetch('https://photozzz-server-rafiulaanam.vercel.app/services',{
-      method:'POST',
-      headers:{
-        'content-type':'application/json'
-      },
-      body: JSON.stringify(comment)
-    })
-    .then(res=>res.json())
-    .then(data=>console.log(data))
-  }
+  useEffect(() => {
+    fetch(`https://photozzz-server-rafiulaanam.vercel.app/comments?id=${_id}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, [_id]);
 
   return (
     <>
@@ -38,32 +33,26 @@ const ServiceDetails = () => {
         </div>
       </div>
 
-      <div className="m-20">
-        <h4 className="text-2xl text-white">We provide those Service</h4>
-        {
-        
-        facility.map(details =><p key={id}>{details.name}</p>)
-        
-        }
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 my-10">
+        <div className="card  bg-neutral text-neutral-content">
+          <div className="card-body h-full items-center text-center">
+            <h2 className="card-title underline">We provide those Service</h2>
+            {facility?.map((details, i) => (
+              <p key={i}>
+                {i + 1}. {details.name}
+              </p>
+            ))}
+          </div>
+        </div>
 
-      <div className="text-center">
-        <h1 className="text-3xl text-bold">Customer Review Section</h1>
-        <h3 className="mt-5">Wirte your comment</h3>
-        <form onSubmit={handleComment}>
-          <textarea
-            className="textarea textarea-bordered w-96"
-            name="comment"
-            placeholder="write your comments"
-          ></textarea>
-          <br />
-          <input
-            className="btn btn-primary mt-10 mb-10"
-            type="submit"
-            value="Submit"
-          />
-        </form>
+        <div>
+          <CommentArea id={_id}></CommentArea>
+        </div>
       </div>
+      <h1 className="text-2xl font-semibold text-center">Comment Section</h1>
+      {reviews.map((review) => (
+        <ReviewCard key={review._id} review={review} id={_id}></ReviewCard>
+      ))}
     </>
   );
 };
